@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POP CULTURE: NOV 2024 UPDATE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif; /* Standard font */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: transparent; /* Fully transparent background */
+            color: black; /* Standard text color */
+            text-align: center;
+        }
+
+        #quiz-container {
+            background-color: transparent; /* Fully transparent container */
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        #logo {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .question {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .answer {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: white; /* Change the answer color to white */
+        }
+
+        #next-button {
+            background-color: white; /* Change background color to white */
+            color: black; /* Change text color to black for visibility */
+            border: 2px solid #ff9900; /* Optional: Add a border for better visibility */
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease-in-out;
+        }
+
+        #next-button:hover {
+            background-color: #ffcc00; /* Change hover color for better effect */
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .fadeOut {
+            animation: fadeOut 0.5s forwards;
+        }
+
+        .fadeIn {
+            animation: fadeIn 0.5s forwards;
+        }
+    </style>
+</head>
+<body>
+
+<div id="quiz-container">
+    <img id="logo" src="https://i.imgur.com/cyZ0Z21.png" alt="George Michael Logo">
+    <h1>POP CULTURE: NOV 2024 UPDATE</h1>
+    <div id="question-container">
+        <div class="question" id="question">Loading question...</div>
+        <div class="answer" id="answer">Loading answer...</div>
+        <button id="next-button" onclick="nextQuestion()">Next Question</button>
+    </div>
+</div>
+
+<script>
+    // Question and answers data
+    const quizData = [
+        { question: "What famous con artist joined Dancing with the Stars in 2024?", answer: 'Anna Delvey' },
+        { question: "Who is the current host of Love Island USA?", answer: 'Ariana Madix' },
+        { question: "Which singer performed with an albino python at the MTV Video Music Awards?", answer: 'Britney Spears' },
+        { question: "What sports team is Will Smith a part-time owner of?", answer: 'The Philadelphia 76ers (NBA)' },
+        { question: "What league do Angel Reese and Caitlin Clark play in?", answer: 'The WNBA' },
+        { question: "Which other franchise have Samuel L. Jackson, Lupita Nyong\'o, and Oscar Isaac starred in besides the MCU?", answer: 'Star Wars' },
+        { question: "What does the term 'Megxit' refer to?", answer: 'Prince Harry and Meghan Markle stepping back from the Royal Family.' },
+        { question: "What do Emilia Clarke, Kit Harington, and Sophie Turner have in common?", answer: 'They all starred in Game of Thrones.' },
+        { question: "Which two figure skaters were involved in a 1994 scandal?", answer: 'Tonya Harding and Nancy Kerrigan' },
+        { question: "Name the six hosts of The Great British Bake Off.", answer: 'Mel Giedroyc, Sue Perkins, Noel Fielding, Sandi Toksvig, Matt Lucas, Alison Hammond' },
+        { question: "How many seasons has Law & Order: SVU had?", answer: '25' },
+        { question: "Who voiced Timon in The Lion King?", answer: 'Nathan Lane' },
+        { question: "Which father and son made NBA history playing together for the Lakers in 2024?", answer: 'LeBron James and Bronny James' },
+        { question: "Who provided the singing voice for Disney’s Mulan and Jasmine?", answer: 'Lea Salonga' },
+        { question: "How many times was Elizabeth Taylor married?", answer: 'Seven' },
+        { question: "Who hosts the US version of The Traitors?", answer: 'Alan Cumming' },
+        { question: "What do Edward Cullen, Spike, and Louis de Pointe du Lac have in common?", answer: 'They are fictional vampires.' },
+        { question: "Who are the current judges of American Idol?", answer: 'Lionel Richie, Katy Perry, and Luke Bryan' },
+        { question: "How many Mission: Impossible movies are there?", answer: 'Seven (with an eighth coming in 2025)' },
+        { question: "Which singer holds the record for most Grammy nominations?", answer: 'Beyoncé' },
+        { question: "How many Oscar nominations does Meryl Streep have?", answer: '21' },
+        { question: "How many women have been nominated for Best Director at the Oscars?", answer: 'Eight' },
+        { question: "Who holds the record for the most Grammy Awards for Album of the Year?", answer: 'Taylor Swift (4 wins)' },
+        { question: "What movie is the line, 'You\'re going to need a bigger boat' from?", answer: 'Jaws' },
+        { question: "Who were the original Spy Kids?", answer: 'Alexa Vega and Daryl Sabara' },
+        { question: "Which musical features the characters Elphaba and Glinda?", answer: 'Wicked' },
+        { question: "Who is playing Elphaba and Glinda in the 2024 Wicked movie?", answer: 'Cynthia Erivo and Ariana Grande' },
+        { question: "Who was the most recent actor to play James Bond?", answer: 'Daniel Craig' },
+        { question: "Which reality show had a 2023 scandal called 'Scandoval'?", answer: 'Vanderpump Rules' },
+        { question: "Which designer frequently collaborated with Cher?", answer: 'Bob Mackie' },
+        { question: "What two major tours were named 'Eras' and 'Renaissance' in 2023?", answer: 'Taylor Swift and Beyoncé\'s tours' },
+        { question: "What meme arose from the simultaneous release of Barbie and Oppenheimer?", answer: 'Barbenheimer' },
+        { question: "Which 2022 movie was dethroned by Avatar: The Way of Water?", answer: 'Top Gun: Maverick' },
+        { question: "Which makeup brands were founded by pop stars?", answer: 'Fenty Beauty (Rihanna), Haus Labs (Lady Gaga), Rare Beauty (Selena Gomez), R.E.M. Beauty (Ariana Grande)' },
+        { question: "Who holds the record for the most MTV Video of the Year Awards?", answer: 'Taylor Swift' },
+        { question: "What American Idol contestant became an Oscar winner?", answer: 'Jennifer Hudson' },
+        { question: "Which TV show had an affair scandal involving two anchors in 2023?", answer: 'Good Morning America' },
+        { question: "Who is the longest-serving host of The View?", answer: 'Joy Behar' },
+        { question: "Which RuPaul’s Drag Race alumni released two books and a podcast together?", answer: 'Trixie Mattel and Katya' },
+        { question: "Who holds the record for the most Oscars?", answer: 'Walt Disney (22 Oscars)' },
+        { question: "What is the longest movie ever made?", answer: 'Amra Ekta Cinema Banabo (21 hours, 5 minutes)' },
+        { question: "How many people watched the Game of Thrones series finale?", answer: '19.3 million' },
+        { question: "What animal did Britney Spears carry during a performance?", answer: 'A snake' },
+        { question: "Who was the Beatles\' original drummer?", answer: 'Pete Best' },
+        { question: "Who is the most followed person on Instagram?", answer: 'Cristiano Ronaldo' },
+        { question: "Who is the youngest Oscar winner of all time?", answer: 'Tatum O\'Neal' },
+        { question: "How much has the MCU grossed overall?", answer: 'Over $25 billion' },
+        { question: "Who is the youngest Emmy winner?", answer: 'Roxana Zal' },
+        { question: "What is the most watched YouTube video?", answer: '"Baby Shark Dance" (over 13 billion views)' }
+    ];
+
+    let currentQuestion = 0;
+
+    // Function to shuffle array
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    // Shuffle the quiz questions when the page loads
+    shuffleArray(quizData);
+
+    function showQuestion() {
+        const questionContainer = document.getElementById("question");
+        const answerContainer = document.getElementById("answer");
+
+        questionContainer.innerText = quizData[currentQuestion].question;
+        answerContainer.innerText = quizData[currentQuestion].answer;
+
+        questionContainer.classList.remove('fadeOut');
+        answerContainer.classList.remove('fadeOut');
+
+        questionContainer.classList.add('fadeIn');
+        answerContainer.classList.add('fadeIn');
+    }
+
+    function nextQuestion() {
+        currentQuestion++;
+
+        const questionContainer = document.getElementById("question");
+        const answerContainer = document.getElementById("answer");
+
+        questionContainer.classList.remove('fadeIn');
+        answerContainer.classList.remove('fadeIn');
+
+        questionContainer.classList.add('fadeOut');
+        answerContainer.classList.add('fadeOut');
+
+        setTimeout(() => {
+            if (currentQuestion < quizData.length) {
+                showQuestion();
+            } else {
+                questionContainer.innerText = "Thank you for playing!";
+                answerContainer.innerText = "";
+                document.getElementById("next-button").style.display = "none"; // Hide the next button
+            }
+        }, 500);
+    }
+
+    // Show a random question on page load
+    showQuestion();
+</script>
+
+</body>
+</html>
